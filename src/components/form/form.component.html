@@ -27,7 +27,7 @@
       </button>
       @if (userForm.get('repeatPassword')?.hasError('required')) {<mat-error> Password is required </mat-error>}
       @if (userForm.get('repeatPassword')?.hasError('minlength')) {<mat-error> Password is at least 2 characters long </mat-error>}
-      @if (passwordMustMatch()) {<mat-error> Passwords must match </mat-error>}
+      @if (!paswordsMatch()) {<mat-error> Passwords must match </mat-error>}
     </mat-form-field>
 
     <mat-form-field appearance="fill">

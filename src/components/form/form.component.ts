@@ -32,6 +32,7 @@ export class FormComponent implements OnInit {
   users = signal<User[]>([]);
   snackBar = inject(MatSnackBar);
   hidePassword = signal(true);
+  paswordsMatch = signal(false);
   hideRepeatPassword = signal(true);
 
   userForm = this.fb.group({
@@ -47,15 +48,20 @@ export class FormComponent implements OnInit {
     if (usersString) {
       this.users.set(JSON.parse(usersString));
     }
+
+    // Changed the way we check if passwords are the same to a more efficient method.
+    this.userForm.valueChanges.subscribe(() => {
+      this.paswordsMatch.set(this.userForm.get('password')?.value === this.userForm.get('repeatPassword')?.value);
+    });
   }
 
-  passwordMustMatch() {
-    const isError = this.userForm.get('password')?.value !== this.userForm.get('repeatPassword')?.value;
-    if (isError) {
-      this.userForm.get('repeatPassword')?.setErrors({mustMatch: true});
-    }
-    return isError;
-  }
+  // passwordMustMatch() {
+  //   const isError = this.userForm.get('password')?.value !== this.userForm.get('repeatPassword')?.value;
+  //   if (isError) {
+  //     this.userForm.get('repeatPassword')?.setErrors({mustMatch: true});
+  //   }
+  //   return isError;
+  // }
 
   onSubmit() {
     if (this.userForm.valid) {
