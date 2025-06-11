@@ -1,0 +1,24 @@
+<div class="user-form">
+  <div class="user-form__container">
+    <div class="user-form__title">Login with your credentials</div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" autocomplete="off">
+
+      <mat-form-field appearance="fill" class="user-form__field">
+        <mat-label>User</mat-label>
+        <input matInput formControlName="username" />
+        @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {<mat-error> User required </mat-error>}
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="user-form__field">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword" class="user-form__toggle-visibility">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {<mat-error> Password required </mat-error>}
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="user-form__button" type="submit" [disabled]="loginForm.invalid"> Login </button>
+    </form>
+  </div>
+</div>

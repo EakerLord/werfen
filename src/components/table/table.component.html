@@ -1,0 +1,36 @@
+<div class="table-users">
+  <div class="table-users__container">
+    <div class="table-users__title">Users list</div>
+    <div class="table-users__table">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef class="table-users__header-centered"> Username </th>
+          <td mat-cell *matCellDef="let user" class="table-users__header-centered"> {{user.username}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef class="table-users__header-centered"> Expiration date </th>
+          <td mat-cell *matCellDef="let user" class="table-users__header-centered"> {{user.date | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="enabled">
+          <th mat-header-cell *matHeaderCellDef class="table-users__header-centered"> Enabled </th>
+          <td mat-cell *matCellDef="let user" class="table-users__header-centered"> {{user.enabled ? 'Yes' : 'No'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="table-users__header-centered"> Actions </th>
+          <td mat-cell *matCellDef="let user">
+            <div class="table-users__actions">
+              <button mat-button color="warn" (click)="deleteUser(user.username)"> Delete </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>
